@@ -4,10 +4,10 @@ function connect_database()
 {
     $connecton = mysqli_connect("localhost","root","","fretkydb");
     if($connecton){
-        echo "vše funguje děkujeme";
+        echo "Máme přistup k datum. Děkujeme za využití.";
     }
     else
-    echo "Omlouváme se máme serverové potíže :(";
+    echo "Omlouváme se máme serverové potíže :( Zkuste to prosím později";
 
 }
 ?>

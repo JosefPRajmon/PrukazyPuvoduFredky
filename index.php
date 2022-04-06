@@ -1,10 +1,12 @@
-<html lang="ca">
+<html lang="cs">
 <head><?php
 include "head.php";
 ?>
+    <title>Rozcestník/login</title>
 </head>
 <body><?php
 include "database.php";
+
 ?>
     <h1>Rozcestník / Login</h1>
     <form method="post">
@@ -14,10 +16,12 @@ include "database.php";
     <br>
 
     <form method="post">
-        <input type="text" placeholder="zadej jméno Fredky">
-        <input type="button" value="Hledání">
+        <label><input type="text" placeholder="zadej jméno Fredky"></label>
+        <label><input type="button" value="Hledání"></label>
     </form>
-<div name="Directory">
+<div> <?php
+    //vysledky
+    ?>
 
 </div>
 </body>
