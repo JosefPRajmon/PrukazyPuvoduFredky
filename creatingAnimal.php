@@ -12,11 +12,66 @@ include "head.php";
     <input type="submit" value="Zadat podle rodiču" name="family">
     <input type="submit" value="Zadat uplně novou" name="newAnimal">
 </form>
-
 <?php
-if (isset($_POST["newAnimal"])){
-    echo "
-<form method='post'>
+//podmínky pro vybrání tlačítka
+if (isset($button)){
+    $button = 0;
+}else{
+    if (isset($_POST["newAnimal"])){
+        $button = 1;
+        CheckButtonNumber($button);
+    }
+
+        if (isset($_POST["SubmitNew"])){
+            ConectCallDatabaseCreatiNewAnimal();
+        }
+
+}
+
+function ConectCallDatabaseCreatiNewAnimal(){
+    try {
+        $name = $_POST["Name"];
+        $studBook = $_POST["StudBook"];
+        $sex = $_POST["Sex"];
+        $born = $_POST["Born"];
+        $breeder = $_POST["Breeder"];
+        $chip = $_POST["Chip"];
+        $colorHair = $_POST["ColorHair"];
+        $typeHair = $_POST["TypeHair"];
+       // $boniting = $_POST["Boniting"];
+        $siblins = $_POST["Siblins"];
+
+        require ("database.php");
+        creatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$siblins);
+    }
+    catch (Exception $e){
+        die( "Omlouváme se vyskytla se chyba $e");
+    }
+}
+
+//zkontroluje které tlačítako bylo rozkliknuto
+function CheckButtonNumber($button){
+     if ($button ==1) {
+         WriteFormVnew();
+         if (isset($_POST["SubmitNew"])) {
+             ConectCallDatabaseCreatiNewAnimal();
+         }
+     } if ($button ==2) {
+         WriteFormVParent();
+         if (isset($_POST["SubmitNew"])) {
+             ConectCallDatabaseCreatiNewAnimal();
+         }
+     }
+}
+
+//vypíše folmulář pro vytvoření potomka
+function WriteFormVParent(){
+
+}
+
+//vypíše formulář ke kompletní tvorbě nového jedince
+function WriteFormVnew(){
+    echo "<form method='post'>
      <label>Jmeno a Chovná stanice: <input type='text' name='Name'></label><br>
      <label>Zápis v Plemenné knize: <input type='text' name='StudBook'></label><br>
      <label>Pohlaví: <input type='text' name='Sex'></label><br>
@@ -27,7 +82,7 @@ if (isset($_POST["newAnimal"])){
      <label>Typ srsti: <input type='text' name='TypeHair'></label><br>
      <label>Doporučení k bonitaci: <input type='checkbox' name='Boniting'></label><br>
      <label>Sourozenci: <input type='text' name='Siblins'></label><br>
-     <input type='submit' value='Vytvořit' name='SubmitNew'>
+     <input type='submit' value='Vytvořit'  name='SubmitNew'>
      </form>";
 }
 ?>

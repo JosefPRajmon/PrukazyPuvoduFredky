@@ -5,7 +5,6 @@ include "head.php";
     <title>Rozcestník/login</title>
 </head>
 <body><?php
-include "database.php";
 
 ?>
     <h1>Rozcestník / Login</h1>
