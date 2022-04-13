@@ -38,14 +38,15 @@ function ConectCallDatabaseCreatiNewAnimal(){
         $chip = $_POST["Chip"];
         $colorHair = $_POST["ColorHair"];
         $typeHair = $_POST["TypeHair"];
-       // $boniting = $_POST["Boniting"];
+        $boniting = $_POST["Boniting"];
         $siblins = $_POST["Siblins"];
 
+
         require ("database.php");
-        creatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$siblins);
+        creatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$siblins,$boniting);
     }
     catch (Exception $e){
-        die( "Omlouváme se vyskytla se chyba $e");
+        errorWrite( "Omlouváme se vyskytla se chyba $e");
     }
 }
 
@@ -71,7 +72,7 @@ function WriteFormVParent(){
 
 //vypíše formulář ke kompletní tvorbě nového jedince
 function WriteFormVnew(){
-    echo "<form method='post'>
+    notCritikalWriting( "<form method='post'>
      <label>Jmeno a Chovná stanice: <input type='text' name='Name'></label><br>
      <label>Zápis v Plemenné knize: <input type='text' name='StudBook'></label><br>
      <label>Pohlaví: <input type='text' name='Sex'></label><br>
@@ -83,7 +84,7 @@ function WriteFormVnew(){
      <label>Doporučení k bonitaci: <input type='checkbox' name='Boniting'></label><br>
      <label>Sourozenci: <input type='text' name='Siblins'></label><br>
      <input type='submit' value='Vytvořit'  name='SubmitNew'>
-     </form>";
+     </form>");
 }
 ?>
 </body>

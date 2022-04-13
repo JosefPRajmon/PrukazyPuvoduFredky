@@ -1,28 +1,39 @@
 <?php
 
-//vytvoření nové vydry v databasi
-function CreatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$siblins,$RecommendedToBreedingExam=false)
-{
+function conectToDatabase(){
     $connecton = mysqli_connect("localhost","root","","fretkydb");
+    return $connecton;
+}
+
+//vytvoření nové fretky v databasi
+function CreatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$siblins,$boniting,$RecommendedToBreedingExam=false)
+{
+    $connecton = conectToDatabase();
     if($connecton){
-
-
             $query = "INSERT INTO ferrets (Name , Studbook, sex, born, Breeder, chip, colorHair, typeHair, siblings, Bonite)
             value ('$name','$studBook','$sex','$born','$breeder','$chip','$colorHair','$typeHair','$siblins','$RecommendedToBreedingExam' )";
             $result = mysqli_query($connecton, $query);
             if(!$result){
-                die("dotaz do databze selhal <br>".mysqli_error($connecton));
+                errorWrite("dotaz do databze selhal <br>".mysqli_error($connecton));
             }else
-                echo "Vše se uložilo. děkujeme ";
-
-
+                notCritikalWriting( "Vše se uložilo. děkujeme");
         }
-
-
-
 }
 
-//zavolání SQL pro vytvoření nové fretky
-function CallDatabasecreating(){
+//zavolání SQL pro najití všech zvířat
+function databaseSearching(){
+    $connecton = conectToDatabase();
+    if($connecton){
+        $query = "SELECT * from ferrets";
+        $result = mysqli_query($connecton, $query);
+        if (!$result) {
+            errorWrite("dotaz do databze selhal <br>" . mysqli_error($connecton));}
+
+
+
+       return $result;
+
+
+    }
 }
 
