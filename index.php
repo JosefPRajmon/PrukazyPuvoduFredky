@@ -21,6 +21,7 @@ include "Seaching.php";
     <input type="submit" value="Hledání" name="search">
 </form>
 <div> <?php
+    echo "<br>"."<br>";
     if (isset($_POST["search"])) {
         search();
     }

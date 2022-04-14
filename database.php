@@ -35,5 +35,21 @@ function databaseSearching(){
 
 
     }
+}function selectWithID($id){
+    $connecton = conectToDatabase();
+    if($connecton){
+        $query = "SELECT `ferrets`.*
+FROM `ferrets`
+WHERE `ferrets`.`ID` = '$id';";
+        $result = mysqli_query($connecton, $query);
+        if (!$result) {
+            errorWrite("dotaz do databze selhal <br>" . mysqli_error($connecton));}
+
+
+
+       return $result;
+
+
+    }
 }
 

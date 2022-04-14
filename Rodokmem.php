@@ -2,6 +2,7 @@
 <head>
     <?php
     include "head.php";
+    include "Seaching.php";
     ?>
 </head>
 <body>
@@ -10,5 +11,5 @@
 </html>
 
 <?php
-
+TakeAnimal()
 ?>
