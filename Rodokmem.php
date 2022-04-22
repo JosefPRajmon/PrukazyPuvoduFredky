@@ -1,15 +1,18 @@
 <html lang="cs">
 <head>
     <?php
-    include "head.php";
+    include "Head.php";
     include "Seaching.php";
+
     ?>
+    <title>Rodokmen fretky</title>
+
 </head>
 <body>
-<img src="img/logo.png">
-</body>
-</html>
+
+
 
 <?php
 TakeAnimal()
-?>
+?></body>
+</html>

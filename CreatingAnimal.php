@@ -2,13 +2,13 @@
 <html lang="cs">
 <head>
     <?php
-include "head.php";
+include "Head.php";
 ?>
     <title>Title</title>
 </head>
 <body>
-<h1>Přidání žvířeze</h1>
-<form action="creatingAnimal.php" method="post" >
+<h1>Přidání žvířezete</h1>
+<form action="CreatingAnimal.php" method="post" >
     <input type="submit" value="Zadat podle rodiču" name="family">
     <input type="submit" value="Zadat uplně novou" name="newAnimal">
 </form>
@@ -25,24 +25,27 @@ if (isset($button)){
         if (isset($_POST["SubmitNew"])){
             ConectCallDatabaseCreatiNewAnimal();
         }
-
+    if (isset($_POST["family"])){
+        $button = 2;
+        CheckButtonNumber($button);
+    }
 }
 
 function ConectCallDatabaseCreatiNewAnimal(){
     try {
-        $name = $_POST["Name"];
-        $studBook = $_POST["StudBook"];
-        $sex = $_POST["Sex"];
-        $born = $_POST["Born"];
-        $breeder = $_POST["Breeder"];
-        $chip = $_POST["Chip"];
-        $colorHair = $_POST["ColorHair"];
-        $typeHair = $_POST["TypeHair"];
-        $boniting = $_POST["Boniting"];
-        $siblins = $_POST["Siblins"];
+        $name = $_POST["name"];
+        $studBook = $_POST["studBook"];
+        $sex = $_POST["sex"];
+        $born = $_POST["born"];
+        $breeder = $_POST["breeder"];
+        $chip = $_POST["chip"];
+        $colorHair = $_POST["colorHair"];
+        $typeHair = $_POST["typeHair"];
+        $boniting = $_POST["boniting"];
+        $siblins = $_POST["siblins"];
 
 
-        require ("database.php");
+        require("Database.php");
         creatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$siblins,$boniting);
     }
     catch (Exception $e){
@@ -67,6 +70,15 @@ function CheckButtonNumber($button){
 
 //vypíše folmulář pro vytvoření potomka
 function WriteFormVParent(){
+    notCritikalWriting("
+<form method='post'>
+<label>První rodič: <input type='text' name='firstParent'></label></label>
+<label>Druhý rodič: <input type='text' name='secondParent'></label></label>
+<input type='submit' name='creteVparent'>
+</form>" );
+
+}
+if(isset($_POST["creteVparent"])){
 
 }
 

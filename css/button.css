@@ -1,0 +1,18 @@
+a {
+    color: black;
+
+    text-decoration: none;
+    text-transform: uppercase;
+
+    padding: 0 15px;
+    margin: 0 5px;
+    font-size: 1em;
+    line-height: 2.3em;
+}
+a:hover, .aktivni a {
+    border-bottom: 2px solid #EF6534;
+}
+
+td {
+    border: black solid 2px;
+}

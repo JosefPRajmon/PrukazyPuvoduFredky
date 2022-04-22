@@ -10,7 +10,7 @@ function CreatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$
 {
     $connecton = conectToDatabase();
     if($connecton){
-            $query = "INSERT INTO ferrets (Name , Studbook, sex, born, Breeder, chip, colorHair, typeHair, siblings, Bonite)
+            $query = "INSERT INTO ferrets (name , studbook, sex, born, breeder, chip, colorHair, typeHair, siblings, bonite)
             value ('$name','$studBook','$sex','$born','$breeder','$chip','$colorHair','$typeHair','$siblins','$RecommendedToBreedingExam' )";
             $result = mysqli_query($connecton, $query);
             if(!$result){
@@ -45,11 +45,19 @@ WHERE `ferrets`.`ID` = '$id';";
         if (!$result) {
             errorWrite("dotaz do databze selhal <br>" . mysqli_error($connecton));}
 
-
-
        return $result;
-
-
     }
 }
+
+//login
+function fLogin($name,$password){
+    $connecton = conectToDatabase();
+    if($connecton) {
+        $query = "SELECT * FROM `user` WHERE `user`.`username` = '$name' AND `user`.`password` = '$password' ";
+        $result = mysqli_query($connecton, $query);
+        if (!$result) {
+            errorWrite("dotaz do databze selhal <br>" . mysqli_error($connecton));
+        }
+    }
+    }
 
