@@ -33,20 +33,19 @@ if (isset($button)){
 
 function ConectCallDatabaseCreatiNewAnimal(){
     try {
-        $name = $_POST["name"];
-        $studBook = $_POST["studBook"];
-        $sex = $_POST["sex"];
-        $born = $_POST["born"];
-        $breeder = $_POST["breeder"];
-        $chip = $_POST["chip"];
-        $colorHair = $_POST["colorHair"];
-        $typeHair = $_POST["typeHair"];
-        $boniting = $_POST["boniting"];
-        $siblins = $_POST["siblins"];
+        $name = $_POST["Name"];
+        $studBook = $_POST["StudBook"];
+        $sex = $_POST["Sex"];
+        $born = $_POST["Born"];
+        $breeder = $_POST["Breeder"];
+        $chip = $_POST["Chip"];
+        $colorHair = $_POST["ColorHair"];
+        $typeHair = $_POST["TypeHair"];
+        $boniting = isset($_POST["Boniting"]);
 
 
         require("Database.php");
-        creatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$siblins,$boniting);
+        creatiNewAnimal($name, $studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$boniting);
     }
     catch (Exception $e){
         errorWrite( "Omlouváme se vyskytla se chyba $e");
@@ -94,7 +93,6 @@ function WriteFormVnew(){
      <label>Barva srsti: <input type='text' name='ColorHair'></label><br>
      <label>Typ srsti: <input type='text' name='TypeHair'></label><br>
      <label>Doporučení k bonitaci: <input type='checkbox' name='Boniting'></label><br>
-     <label>Sourozenci: <input type='text' name='Siblins'></label><br>
      <input type='submit' value='Vytvořit'  name='SubmitNew'>
      </form>");
 }

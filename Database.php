@@ -6,12 +6,12 @@ function conectToDatabase(){
 }
 
 //vytvoření nové fretky v databasi
-function CreatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$siblins,$boniting,$RecommendedToBreedingExam=false)
+function CreatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$boniting,$famili = '0,0')
 {
     $connecton = conectToDatabase();
     if($connecton){
-            $query = "INSERT INTO ferrets (name , studbook, sex, born, breeder, chip, colorHair, typeHair, siblings, bonite)
-            value ('$name','$studBook','$sex','$born','$breeder','$chip','$colorHair','$typeHair','$siblins','$RecommendedToBreedingExam' )";
+            $query = "INSERT INTO ferrets (name , studbook, sex, born, breeder, chip, colorHair, typeHair, bonite, famili)
+            value ('$name','$studBook','$sex','$born','$breeder','$chip','$colorHair','$typeHair','$boniting','$famili' )";
             $result = mysqli_query($connecton, $query);
             if(!$result){
                 errorWrite("dotaz do databze selhal <br>".mysqli_error($connecton));
