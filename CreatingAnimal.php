@@ -7,6 +7,10 @@ include "Head.php";
     <title>Title</title>
 </head>
 <body>
+<div class="row">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-5">
+
 <h1>Přidání žvířezete</h1>
 <form action="CreatingAnimal.php" method="post" >
     <input type="submit" value="Zadat podle rodiču" name="family">
@@ -97,5 +101,9 @@ function WriteFormVnew(){
      </form>");
 }
 ?>
+    </div>
+</div>
+<div class="col-xs-3"></div>
+</div>
 </body>
 </html>
