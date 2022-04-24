@@ -23,21 +23,27 @@ else{
     notCritikalWriting("<label><a href='CreatingAnimal.php' >Vytvořit novou fretku</a></label>");
 
 
-}    //echo $_SESSION["login"];
+}
     ?>
     <br>
 
 <form method="post" >
-    <label><input type="text" placeholder="zadej jméno Fredky"></label>
+    <label>zadej jméno Fredky: (min 3 znaky)<input type="text" name="SearchedData" placeholder="" value="<?php
+
+        if(isset($_POST["search"])){
+                echo $_POST["SearchedData"];}
+        ?>"></label>
     <input type="submit" value="Hledání" name="search">
 </form>
 <div> <?php
     echo "<br>"."<br>";
     if (isset($_POST["search"])) {
-        search(strlen(substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1))-4);
-    }
-  //  "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"
 
+        if(strlen($_POST["SearchedData"])>2){
+            $searchedData = $_POST["SearchedData"];
+            search($searchedData) ;
+        }
+    }
     ?>
 
 </div>

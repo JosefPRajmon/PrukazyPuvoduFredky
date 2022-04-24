@@ -1,12 +1,12 @@
 <?php
 include "Database.php";
-function search($long)
+function search($SearchedData)
 {
-    $result = databaseSearching();
+    $result = databaseSearching($SearchedData);
     while($row = mysqli_fetch_assoc($result)){
 
         $link = "http://$_SERVER[HTTP_HOST]/".strtok( "$_SERVER[REQUEST_URI]", "/")."/Rodokmem.php?"."id=".$row["ID"];
-        print_r("<p><a href=$link>".$row["name"]);
+        print_r("<p><a href=$link>".$row["name"]."</a>".$row["born"]."</p>");
     }
 }function TakeAnimal()
 {
@@ -15,18 +15,28 @@ function search($long)
     while($row = mysqli_fetch_assoc($result)){
 
         //proměné z DTB
+        if (isset($row["name"]))
         $name =$row["name"];
+        if (isset($row["studbook"]))
         $studbook =$row["studbook"];
+        if (isset($row["sex"]))
         $sex =$row["sex"];
+        if (isset($row["born"]))
         $born =$row["born"];
+        if (isset($row["breeder"]))
         $breeder =$row["breeder"];
+        if (isset($row["chip"]))
         $chip =$row["chip"];
+        if (isset($row["colorHair"]))
         $colorHair =$row["colorHair"];
+        if (isset($row["typeHair"]))
         $typeHair =$row["typeHair"];
+        if (isset($row["bonite"]))
         $bonite =$row["bonite"];
-        $siblings = $row["siblings"];
 
-        $TEXT = "
+        $siblings = searchSiblings($row["famili"], $row["ID"]);
+
+        return "
 <div>
         <div class='row'>
         <div class='col-lg-2'> <img alt='logo' src='img/logo.png'></div>
@@ -78,18 +88,14 @@ function search($long)
         <div>
             <div class='col-lg-3'><h5>Chovatel</h5><h6>Breeder</h6></div>
         </div>
-            <div class='col-lg-3'>$breeder</div>
+            <div class='col-lg-4'>$breeder</div>
             
         <div class='col-lg-3'>
             <div><h5>Sourozenci</h5><h6>Siblings</h6></div>
         </div>
-            <div class='col-lg-2'>$siblings</div>
+            <div class='col-lg-2'><p>$siblings</p></div>
 </div>
 
 </div>";
-
-
-//vypsání result v divu
-        notCritikalWriting($TEXT);
     }
 }

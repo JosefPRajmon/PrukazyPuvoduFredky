@@ -6,7 +6,7 @@ function conectToDatabase(){
 }
 
 //vytvoření nové fretky v databasi
-function CreatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$boniting,$famili = '0,0')
+function CreatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$boniting,$famili = '-1,-1')
 {
     $connecton = conectToDatabase();
     if($connecton){
@@ -20,11 +20,20 @@ function CreatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$
         }
 }
 
+//give ID
+function giweID($searchedData){
+    $result =databaseSearching($searchedData);
+    while($ressult = mysqli_fetch_assoc($result)){
+        return $ressult["ID"];
+
+    }
+}
+
 //zavolání SQL pro najití všech zvířat
-function databaseSearching(){
+function databaseSearching($searchedData){
     $connecton = conectToDatabase();
     if($connecton){
-        $query = "SELECT * from ferrets";
+        $query = "SELECT * from ferrets WHERE name LIKE '$searchedData%'";
         $result = mysqli_query($connecton, $query);
         if (!$result) {
             errorWrite("dotaz do databze selhal <br>" . mysqli_error($connecton));}
@@ -47,6 +56,48 @@ WHERE `ferrets`.`ID` = '$id';";
 
        return $result;
     }
+return "";
+}
+
+//search witch famili
+function searchSiblings($famili, $myID,$linkYes=true)
+{
+    $famili = (string) $famili;
+    if ($famili === "-1,-1")
+        return "";
+
+    else {
+        $connecton = conectToDatabase();
+        if ($connecton) {
+            $query = "SELECT `ferrets`.* FROM `ferrets` WHERE `ferrets`.`famili` = '$famili' AND `ferrets`.`ID` !=$myID";
+            $result = mysqli_query($connecton, $query);
+
+            $ressult = "";
+            while($rows = mysqli_fetch_assoc($result)){
+                $name = $rows["name"];
+                $ID = $rows["ID"];
+                if ($linkYes){
+                $link = "https://$_SERVER[HTTP_HOST]/".strtok( "$_SERVER[REQUEST_URI]", "/")."/Rodokmem.php?id=$ID";
+                if ($ressult ===""){
+                    $ressult = $ressult."<a href='$link'>$name</a>";
+                }else
+                    $ressult = $ressult.", <a href='$link'>$name</a>";
+                }else{
+                    if ($ressult ===""){
+                        $ressult = $ressult."$name";
+                    }else
+                        $ressult = $ressult.", $name";
+
+                }
+
+
+            return $ressult;}
+
+            }
+
+        }
+
+    return "";
 }
 
 //login
@@ -59,5 +110,5 @@ function fLogin($name,$password){
             errorWrite("dotaz do databze selhal <br>" . mysqli_error($connecton));
         }
     }
-    }
+}
 
