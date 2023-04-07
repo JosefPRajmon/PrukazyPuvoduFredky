@@ -1,39 +1,53 @@
 <?php
 include "Database.php";
+
+// Funkce pro vyhledání a vypsání výsledků z databáze
 function search($SearchedData)
 {
+    // Zavolání funkce pro vyhledání dat v databázi
     $result = databaseSearching($SearchedData);
+
+    // Vypsání nalezených výsledků pomocí cyklu while
     while($row = mysqli_fetch_assoc($result)){
 
+        // Vytvoření odkazu pro každý výsledek
         $link = "http://$_SERVER[HTTP_HOST]/".strtok( "$_SERVER[REQUEST_URI]", "/")."/Rodokmem.php?"."id=".$row["ID"];
+
+        // Vypsání jména a data narození každého výsledku
         print_r("<p><a href=$link>".$row["name"]."</a>".$row["born"]."</p>");
     }
-}function TakeAnimal()
+}
+
+// Funkce pro získání informací o zvířeti s určitým ID
+function TakeAnimal()
 {
+    // Získání dat z databáze pomocí funkce selectWithID a ID z URL
     $result = selectWithID($_GET["id"]);
 
+    // Vypsání informací o zvířeti pomocí cyklu while
     while($row = mysqli_fetch_assoc($result)){
 
-        //proměné z DTB
+        // Přiřazení hodnot získaných z databáze do proměnných
         if (isset($row["name"]))
-        $name =$row["name"];
+            $name =$row["name"];
         if (isset($row["studbook"]))
-        $studbook =$row["studbook"];
+            $studbook =$row["studbook"];
         if (isset($row["sex"]))
-        $sex =$row["sex"];
+            $sex =$row["sex"];
         if (isset($row["born"]))
-        $born =$row["born"];
+            $born =$row["born"];
         if (isset($row["breeder"]))
-        $breeder =$row["breeder"];
+            $breeder =$row["breeder"];
         if (isset($row["chip"]))
-        $chip =$row["chip"];
+            $chip =$row["chip"];
         if (isset($row["colorHair"]))
-        $colorHair =$row["colorHair"];
+            $colorHair =$row["colorHair"];
         if (isset($row["typeHair"]))
-        $typeHair =$row["typeHair"];
+            $typeHair =$row["typeHair"];
         if (isset($row["bonite"]))
-        $bonite =$row["bonite"];
+            $bonite =$row["bonite"];
 
+        // Vypsání informací o zvířeti v HTML
         $siblings = searchSiblings($row["famili"], $row["ID"]);
 
         return "
@@ -62,7 +76,7 @@ function search($SearchedData)
         </div>
         <div class='col-lg-2'><p>$colorHair</p><p>$typeHair</p></div>
         </div>
-        
+
 <div class='row'>
         <div class='col-lg-2'><h3>PRŮKAZ PŮVODU FRETKY</h3></div>
         <div class='col-lg-3'>
@@ -89,7 +103,7 @@ function search($SearchedData)
             <div class='col-lg-3'><h5>Chovatel</h5><h6>Breeder</h6></div>
         </div>
             <div class='col-lg-4'>$breeder</div>
-            
+
         <div class='col-lg-3'>
             <div><h5>Sourozenci</h5><h6>Siblings</h6></div>
         </div>

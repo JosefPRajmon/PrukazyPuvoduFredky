@@ -1,106 +1,108 @@
 <?php
 
-function conectToDatabase(){
-    $connecton = mysqli_connect("localhost","root","","fretkydb");
-    return $connecton;
+// Funkce pro připojení k databázi
+function connectToDatabase() {
+    $connection = mysqli_connect("localhost", "root", "", "fretkydb");
+    // Pokud se nepodaří připojit, vypíšeme chybu a ukončíme skript
+    if (!$connection) {
+        errorWrite("Nepodařilo se připojit k databázi: " . mysqli_connect_error());
+        die();
+    }
+    // Nastavíme kódování na utf-8 pro správné zobrazení diakritiky
+    mysqli_set_charset($connection, "utf8");
+    return $connection;
 }
 
-//vytvoření nové fretky v databasi
-function CreatiNewAnimal($name,$studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$boniting,$famili = '-1,-1')
+// Funkce pro vytvoření nové fretky v databázi
+function createNewAnimal($name, $studBook, $sex, $born, $breeder, $chip, $colorHair, $typeHair, $boniting, $famili = '-1,-1')
 {
-    $connecton = conectToDatabase();
-    if($connecton){
-            $query = "INSERT INTO ferrets (name , studbook, sex, born, breeder, chip, colorHair, typeHair, bonite, famili)
-            value ('$name','$studBook','$sex','$born','$breeder','$chip','$colorHair','$typeHair','$boniting','$famili' )";
-            $result = mysqli_query($connecton, $query);
-            if(!$result){
-                errorWrite("dotaz do databze selhal <br>".mysqli_error($connecton));
-            }else
-                notCritikalWriting( "Vše se uložilo. děkujeme");
+    $connection = connectToDatabase();
+    if($connection){
+        $query = "INSERT INTO ferrets (name, studbook, sex, born, breeder, chip, colorHair, typeHair, bonite, famili)
+                  VALUES ('$name', '$studBook', '$sex', '$born', '$breeder', '$chip', '$colorHair', '$typeHair', '$boniting', '$famili')";
+        $result = mysqli_query($connection, $query);
+        if(!$result){
+            errorWrite("Dotaz do databáze selhal <br>" . mysqli_error($connection));
+        } else {
+            notCritikalWriting("Vše se uložilo. Děkujeme");
         }
-}
-
-//give ID
-function giweID($searchedData){
-    $result =databaseSearching($searchedData);
-    while($ressult = mysqli_fetch_assoc($result)){
-        return $ressult["ID"];
-
     }
 }
 
-//zavolání SQL pro najití všech zvířat
+// Funkce pro získání ID zvířete podle jména
+function getID($searchedData){
+    $result = databaseSearching($searchedData);
+    while($res = mysqli_fetch_assoc($result)){
+        return $res["ID"];
+    }
+}
+
+// Funkce pro vyhledávání v databázi
 function databaseSearching($searchedData){
-    $connecton = conectToDatabase();
-    if($connecton){
-        $query = "SELECT * from ferrets WHERE name LIKE '$searchedData%'";
-        $result = mysqli_query($connecton, $query);
+    $connection = connectToDatabase();
+    if($connection){
+        $query = "SELECT * FROM ferrets WHERE name LIKE '$searchedData%'";
+        $result = mysqli_query($connection, $query);
         if (!$result) {
-            errorWrite("dotaz do databze selhal <br>" . mysqli_error($connecton));}
-
-
-
-       return $result;
-
-
+            errorWrite("Dotaz do databáze selhal <br>" . mysqli_error($connection));
+        }
+        return $result;
     }
-}function selectWithID($id){
-    $connecton = conectToDatabase();
-    if($connecton){
-        $query = "SELECT `ferrets`.*
-FROM `ferrets`
-WHERE `ferrets`.`ID` = '$id';";
-        $result = mysqli_query($connecton, $query);
-        if (!$result) {
-            errorWrite("dotaz do databze selhal <br>" . mysqli_error($connecton));}
-
-       return $result;
-    }
-return "";
 }
 
-//search witch famili
-function searchSiblings($famili, $myID,$linkYes=true)
-{
-    $famili = (string) $famili;
-    if ($famili === "-1,-1")
-        return "";
-
-    else {
-        $connecton = conectToDatabase();
-        if ($connecton) {
-            $query = "SELECT `ferrets`.* FROM `ferrets` WHERE `ferrets`.`famili` = '$famili' AND `ferrets`.`ID` !=$myID";
-            $result = mysqli_query($connecton, $query);
-
-            $ressult = "";
-            while($rows = mysqli_fetch_assoc($result)){
-                $name = $rows["name"];
-                $ID = $rows["ID"];
-                if ($linkYes){
-                $link = "https://$_SERVER[HTTP_HOST]/".strtok( "$_SERVER[REQUEST_URI]", "/")."/Rodokmem.php?id=$ID";
-                if ($ressult ===""){
-                    $ressult = $ressult."<a href='$link'>$name</a>";
-                }else
-                    $ressult = $ressult.", <a href='$link'>$name</a>";
-                }else{
-                    if ($ressult ===""){
-                        $ressult = $ressult."$name";
-                    }else
-                        $ressult = $ressult.", $name";
-
-                }
-
-
-            return $ressult;}
-
-            }
-
+// Funkce pro výběr konkrétní fretky z databáze podle ID
+function selectWithID($id){
+    $connection = connectToDatabase();
+    if($connection){
+        $query = "SELECT `ferrets`.* FROM `ferrets` WHERE `ferrets`.`ID` = '$id';";
+        $result = mysqli_query($connection, $query);
+        if (!$result) {
+            errorWrite("Dotaz do databáze selhal <br>" . mysqli_error($connection));
         }
-
+        return $result;
+    }
     return "";
 }
 
-//login
+// hledání sourozencu pomocí ID
+function searchSiblings($famili, $myID, $linkYes = true)
+{
+    $famili = (string) $famili;
+    if ($famili === "-1,-1") {
+        return "";
+    } else {
+        $connecton = conectToDatabase();
+        if ($connecton) {
+            $query = "SELECT `ferrets`.* FROM `ferrets` WHERE `ferrets`.`famili` = '$famili' AND `ferrets`.`ID` != $myID";
+            $result = mysqli_query($connecton, $query);
+
+            $ressult = "";
+            while ($rows = mysqli_fetch_assoc($result)) {
+                $name = $rows["name"];
+                $ID = $rows["ID"];
+                if ($linkYes) {
+                    $link = "https://$_SERVER[HTTP_HOST]/" . strtok("$_SERVER[REQUEST_URI]", "/") . "/Rodokmem.php?id=$ID";
+                    if ($ressult === "") {
+                        $ressult = $ressult . "<a href='$link'>$name</a>";
+                    } else {
+                        $ressult = $ressult . ", <a href='$link'>$name</a>";
+                    }
+                } else {
+                    if ($ressult === "") {
+                        $ressult = $ressult . "$name";
+                    } else {
+                        $ressult = $ressult . ", $name";
+                    }
+                }
+            }
+
+            return $ressult;
+        }
+    }
+    return "";
+}
+
+//přihlášení uživatele
 function fLogin($name,$password){
     $connecton = conectToDatabase();
     if($connecton) {

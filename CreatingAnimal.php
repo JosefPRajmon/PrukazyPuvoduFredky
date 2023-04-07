@@ -2,9 +2,9 @@
 <html lang="cs">
 <head>
     <?php
-include "Head.php";
-include "Database.php"
-?>
+    include "Head.php";
+    include "Database.php";
+    ?>
     <title>Title</title>
 </head>
 <body>
@@ -12,78 +12,80 @@ include "Database.php"
     <div class="col-xs-4"></div>
     <div class="col-xs-5">
 
-<h1>Přidání žvířezete</h1>
-<form action="CreatingAnimal.php" method="post" >
-    <input type="submit" value="Zadat podle rodiču" name="family">
-    <input type="submit" value="Zadat uplně novou" name="newAnimal">
-</form>
-<?php
-//podmínky pro vybrání tlačítka
-if (isset($button)){
-    $button = 0;
-}else{
-    if (isset($_POST["newAnimal"])){
-        $button = 1;
-        CheckButtonNumber($button);
-    }
+        <h1>Přidání žvířezete</h1>
+        <form action="CreatingAnimal.php" method="post" >
+            <input type="submit" value="Zadat podle rodiču" name="family">
+            <input type="submit" value="Zadat uplně novou" name="newAnimal">
+        </form>
 
-        if (isset($_POST["SubmitNew"])){
-            ConectCallDatabaseCreatiNewAnimal();
+        <?php
+        //podmínky pro vybrání tlačítka
+        if (isset($button)){
+            $button = 0;
+        }else{
+            if (isset($_POST["newAnimal"])){
+                $button = 1;
+                CheckButtonNumber($button);
+            }
+
+            if (isset($_POST["SubmitNew"])){
+                ConectCallDatabaseCreatiNewAnimal();
+            }
+
+            if (isset($_POST["creteVparent"])){
+                ConectCallDatabaseCreatiNewAnimalWParent();
+            }
+
+            if (isset($_POST["family"])){
+                $button = 2;
+                CheckButtonNumber($button);
+            }
         }
-        if (isset($_POST["creteVparent"])){
-            ConectCallDatabaseCreatiNewAnimalWParent();
+        //vytvoření nové fretkky bez rodiču
+        function ConectCallDatabaseCreatiNewAnimal(){
+            try {
+                $name = $_POST["Name"];
+                $studBook = $_POST["StudBook"];
+                $sex = $_POST["Sex"];
+                $born = $_POST["Born"];
+                $breeder = $_POST["Breeder"];
+                $chip = $_POST["Chip"];
+                $colorHair = $_POST["ColorHair"];
+                $typeHair = $_POST["TypeHair"];
+                $boniting = isset($_POST["Boniting"]);
+
+                require("Database.php");
+                creatiNewAnimal($name, $studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$boniting);
+            }
+            catch (Exception $e) {
+                errorWrite("Omlouváme se vyskytla se chyba $e");
+            }
         }
-    if (isset($_POST["family"])){
-        $button = 2;
-        CheckButtonNumber($button);
-    }
-}
-//vytvoření nové fretkky bez rodiču
-function ConectCallDatabaseCreatiNewAnimal(){
-    try {
-        $name = $_POST["Name"];
-        $studBook = $_POST["StudBook"];
-        $sex = $_POST["Sex"];
-        $born = $_POST["Born"];
-        $breeder = $_POST["Breeder"];
-        $chip = $_POST["Chip"];
-        $colorHair = $_POST["ColorHair"];
-        $typeHair = $_POST["TypeHair"];
-        $boniting = isset($_POST["Boniting"]);
 
+        //vytvoření nové fretkky s rodiči
+        function ConectCallDatabaseCreatiNewAnimalWParent(){
+            try {
+                $name = $_POST["Name"];
+                $studBook = $_POST["StudBook"];
+                $sex = $_POST["Sex"];
+                $born = $_POST["Born"];
+                $breeder = $_POST["Breeder"];
+                $chip = $_POST["Chip"];
+                $colorHair = $_POST["ColorHair"];
+                $typeHair = $_POST["TypeHair"];
+                $boniting = isset($_POST["Boniting"]);
 
-        require("Database.php");
-        creatiNewAnimal($name, $studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$boniting);
-    }
-    catch (Exception $e){
-        errorWrite( "Omlouváme se vyskytla se chyba $e");
-    }
-}
+                $firstParent = getID($_POST["firstParent"]);
+                $secondParent = getID($_POST["secondParent"]);
+                $famili = "$firstParent,$secondParent";
+                notCritikalWriting($famili);
 
-function ConectCallDatabaseCreatiNewAnimalWParent(){
-    try {
-        $name = $_POST["Name"];
-        $studBook = $_POST["StudBook"];
-        $sex = $_POST["Sex"];
-        $born = $_POST["Born"];
-        $breeder = $_POST["Breeder"];
-        $chip = $_POST["Chip"];
-        $colorHair = $_POST["ColorHair"];
-        $typeHair = $_POST["TypeHair"];
-        $boniting = isset($_POST["Boniting"]);
-
-        $firstParent = giweID($_POST["firstParent"]);
-        $secondParent = giweID($_POST["secondParent"]);
-        $famili = "$firstParent,$secondParent";
-        notCritikalWriting($famili);
-
-        creatiNewAnimal($name, $studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$boniting, $famili);
-    }
-    catch (Exception $e){
-        errorWrite( "Omlouváme se vyskytla se chyba $e");
-    }
-}
-
+                creatiNewAnimal($name, $studBook,$sex, $born,$breeder,$chip,$colorHair,$typeHair,$boniting, $famili);
+            }
+            catch (Exception $e) {
+                errorWrite("Omlouváme se vyskytla se chyba $e");
+            }
+        }
 //zkontroluje které tlačítako bylo rozkliknuto
 function CheckButtonNumber($button){
      if ($button ==1) {
@@ -119,7 +121,7 @@ function WriteFormVParent(){
 
 }
 if(isset($_POST["creteVparent"])){
-
+    //nedokončeno
 }
 
 //vypíše formulář ke kompletní tvorbě nového jedince
