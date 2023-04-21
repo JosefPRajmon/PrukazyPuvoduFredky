@@ -1,1 +1,6 @@
-aaa
+Tento projekt není dokonèen. 
+Jednalo se o zadání v dobì mého podnikání. tento kod byl komentován v èetinì kvul klijentovi.
+Klijent chtìl aby vše probíhalo na stranì serveru, nekolikrát zmìnil zadání tedy v souborech jsou nehotové èásti. 
+V tuto chvíli 7.4.2023 jsem zaèal pøedìlávat tento projekt, pøidávám sem AJAX a zefektivnuji jeho fungování pomocí JavaScriptu. 
+
+Jedná se použe o ukázku kodu, mým cílem není udìlat ho dokonale funkèní a veøejnì dostupný. tedy zámìrnì v nìm jsou chyby jakožto blokace moznosti použít (nemoznost vytvoøit rodièe fretky bez jejich rodièu. Tedy jediný zpusob vlození je pøímo do databaze)

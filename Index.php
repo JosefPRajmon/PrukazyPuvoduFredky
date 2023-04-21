@@ -15,9 +15,15 @@ session_start();
 include "Seaching.php";
 ?>
     <h1>Rozcestník</h1>
-<?php
-if($_SESSION["login"] === false){
-    notCritikalWriting("<p><a href='Login.php'>Přihlášení</a></p>");}
+    <?php
+if (isset($_SESSION["login"]))
+{
+    if($_SESSION["login"] === false){
+        notCritikalWriting("<p><a href='Login.php'>Přihlášení</a></p>");
+    }
+
+}
+
 
 else{
     notCritikalWriting("<label><a href='CreatingAnimal.php' >Vytvořit novou fretku</a></label>");
