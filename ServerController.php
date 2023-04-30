@@ -31,8 +31,7 @@ class webControler {
         switch ($fn){
             case "searchAll":
                 //zakladní volaní funkce která vrátí vsechny data
-                return "test"; 
-                //TakeAnimal();
+                return "test";  //TakeAnimal();
             case "search":
                 return "jo";
 
