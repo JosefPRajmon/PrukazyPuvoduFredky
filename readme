@@ -1,6 +1,7 @@
-Tento projekt není dokonèen. 
-Jednalo se o zadání v dobì mého podnikání. tento kod byl komentován v èetinì kvul klijentovi.
-Klijent chtìl aby vše probíhalo na stranì serveru, nekolikrát zmìnil zadání tedy v souborech jsou nehotové èásti. 
-V tuto chvíli 7.4.2023 jsem zaèal pøedìlávat tento projekt, pøidávám sem AJAX a zefektivnuji jeho fungování pomocí JavaScriptu. 
+Tento projekt neni dokoncen. 
+Jednalo se o zadani v dobe meho podnikani. tento kod byl komentovan v cetine kvul klijentovi.
+Klijent chtel aby vse probehalo na strane serveru, nekolikrat zmenil zadani tedy v souborech jsou nehotovy casti. 
+V tuto chvili 7.4.2023 jsem zacal predelavat tento projekt, pridavam sem AJAX a zefektivnuji jeho fungovani pomoci JavaScriptu. 
 
-Jedná se použe o ukázku kodu, mým cílem není udìlat ho dokonale funkèní a veøejnì dostupný. tedy zámìrnì v nìm jsou chyby jakožto blokace moznosti použít (nemoznost vytvoøit rodièe fretky bez jejich rodièu. Tedy jediný zpusob vlození je pøímo do databaze)
+Jedna se pouze o ukazku kodu, mojim cilem neni udelat ho dokonale funkcni a verejne dostupny. 
+Tedy zamerne v nem jsou chyby jakozto blokace moznosti pouzit (nemoznost vytvorit rodice fretky bez jejich rodicu. Tedy jediny zpusob vlozeni je primo do databaze)
