@@ -1,21 +1,47 @@
+<?php
+include_once "Seaching.php";
+$root = new webControler();
+$root -> webControler();
 
-// zkontrolujeme, zda byl požadavek odeslán metodou POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // naèteme data z požadavku
+class webControler {
+    
+    function webControler() {
+// zkontrolujeme, zda byl poÅ¾adavek odeslÃ¡n metodou POST
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // nacteme data z pozadavku
     $data = json_decode(file_get_contents('php://input'), true);
-    
-    // zde bude volání funkce která pøeposle požadavek dal
-    
-    // vytvoøíme odpovìï - bude to pole s fretkami ze serveru - vlozit pole fretek
-    $response = [
-        "status", "=>", "success",
-        "message", "=>", "Data byla úspìšnì uložena"
-    ];
-   // vrátíme odpovìï ve formátu JSON s kódem 200 pro úspìšnou odpovìï
-    http_response_code(200);
-    
-    // vrátíme odpovìï ve formátu JSON
+
+    // vytvoÅ™Ã­me odpovÄ›Ä - bude to pole s fretkami ze serveru - vloÅ¾it pole fretek
+    $response =  $this->rooting($data);
+    // [  "status", "=>", "success", "message", "=>", "test"];
+    // vratime odpoved ve formatu JSON s kodem 200 pro uspesnou odpoved
+
+    // vratime odpoved ve formatu JSON
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+    }
 
+    function rooting($data){
+        //vyber funkce
+        $fn = $data["fn"];
+        
+        //switch fungujici jako routa
+        switch ($fn){
+            case "searchAll":
+                //zakladnÃ­ volanÃ­ funkce kterÃ¡ vrÃ¡tÃ­ vsechny data
+                return "test";  //TakeAnimal();
+            case "search":
+                return "jo";
+
+        }
+
+        foreach ($data as &$value){
+         //   print_r ($value);
+        }
+    }
+}
+
+
+?>

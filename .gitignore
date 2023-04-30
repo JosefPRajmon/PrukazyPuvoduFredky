@@ -1,0 +1,17 @@
+﻿################################################################################
+# Tento soubor .gitignore byl automaticky vytvořen aplikací Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/PrukazyPuvoduFredky/v17
+/.vs/PrukazyPuvoduFredky/config
+/.vs/PrukazyPuvoduFredky/FileContentIndex/read.lock
+/.vs/PrukazyPuvoduFredky/FileContentIndex/b7c70da9-0767-4614-a2b2-f3f952dffe6c.vsidx
+/.vs/PrukazyPuvoduFredky/FileContentIndex/a7f8ee22-3cb9-4b79-ac76-ec3f9f338e58.vsidx
+/.vs/PrukazyPuvoduFredky/FileContentIndex/90baaa47-b157-4fe1-8e73-127f6f8ffcc5.vsidx
+/.vs/PrukazyPuvoduFredky/FileContentIndex/72171a53-7a29-4289-8a42-ac28f47d1223.vsidx
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/PrukazyPuvoduFredky/FileContentIndex/5e526acc-7d0e-4d38-9424-d192560e22de.vsidx
+/.vs/ProjectSettings.json
+/.vs/phptasks.json
+/.vs/PrukazyPuvoduFredky/FileContentIndex/b086b3a6-5733-4cd2-ba64-2d66754de7da.vsidx

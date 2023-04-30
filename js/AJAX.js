@@ -12,7 +12,6 @@ function sendRequest(method, url, data, callback) {
 
 function testVypis(response) {
     console.log(response);
-    console.log(" test jede")
 }
 
-sendRequest('POST', 'http://localhost/PrukazyPuvoduFredky/ServerController.php', { "fn": "ech" }, function (response) { testVypis(response); });
+sendRequest('POST', 'http://localhost/PrukazyPuvoduFredky/ServerController.php', { "fn": "searchAll" }, function (response) { testVypis(response); });
