@@ -1,12 +1,12 @@
 <?php
 function notCritikalWriting($writeText){
-    // Funkce pro výpis nekritických zpráv
+    // Funkce pro vypis nekritickych zprï¿½av
     echo "$writeText";
 }
 
 function errorWrite($errorText){
-    // Funkce pro výpis chybových zpráv a ukonèení skriptu
-    // Funkce taktéž zapisuje error do logu
+    // Funkce pro vypis chybovych zprav a ukonceni skriptu
+    // Funkce taktï¿½ zapisuje error do logu
     error_log($errorText);
     die("$errorText");
 }
