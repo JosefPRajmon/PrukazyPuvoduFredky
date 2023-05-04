@@ -7,6 +7,3 @@ function vissibilityID(elementToChange,close){
    else
     a.style.display = "none";
 }
-vissibilityID("newFamily");
-
-vissibilityID("NewInFamily");
